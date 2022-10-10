@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:journey_app/components.dart';
 import 'package:journey_app/constants.dart';
+import 'package:journey_app/screens/add_entry_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -35,7 +36,15 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 height: h * 0.05,
               ),
-              JourneyButton(label: 'Add Entry', fn: () {})
+              JourneyButton(
+                  label: 'Add Entry',
+                  fn: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => AddEntryScreen(),
+                        ));
+                  })
             ],
           ),
         ),

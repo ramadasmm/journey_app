@@ -12,3 +12,10 @@ const kButtonText = TextStyle(
   fontSize: 32,
   color: Colors.white,
 );
+
+const kTextField = BoxDecoration(
+  color: Colors.black26,
+  borderRadius: BorderRadius.all(
+    Radius.circular(10),
+  ),
+);

@@ -36,16 +36,14 @@ class JourneyTitle extends StatelessWidget {
 
 class JourneyButton extends StatelessWidget {
   final String label;
-  final Function fn;
+  final fn;
   const JourneyButton({super.key, required this.label, required this.fn});
 
   @override
   Widget build(BuildContext context) {
     final w = MediaQuery.of(context).size.width;
     return GestureDetector(
-      onTap: () {
-        fn;
-      },
+      onTap: fn,
       child: Container(
         width: w * 0.8,
         padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 3),
