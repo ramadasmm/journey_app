@@ -62,3 +62,75 @@ class JourneyButton extends StatelessWidget {
     );
   }
 }
+
+class EntryTile extends StatelessWidget {
+  final String title;
+  final String entry;
+  final String dateTime;
+  const EntryTile(
+      {super.key,
+      required this.title,
+      required this.entry,
+      required this.dateTime});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      decoration: const BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black54,
+              blurRadius: 3,
+              offset: Offset(0, 7),
+            ),
+          ]),
+      child: ListTile(
+        onTap: () {},
+        contentPadding: const EdgeInsets.all(2),
+        title: Text(
+          title,
+          style: const TextStyle(
+              color: Color(0xff00114f),
+              fontWeight: FontWeight.w600,
+              fontSize: 24),
+        ),
+        subtitle: Text(
+          entry,
+          style: const TextStyle(
+            overflow: TextOverflow.ellipsis,
+            color: Color(0xff00114f),
+            fontSize: 18,
+          ),
+        ),
+        tileColor: Colors.white,
+        trailing: Column(
+          children: [
+            Text(
+              '${dateTime.substring(5, 11)},${dateTime.substring(0, 3)}',
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+                color: Color(0xff00114f),
+              ),
+            ),
+            const SizedBox(
+              height: 3,
+            ),
+            Text(
+              dateTime.substring(17),
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Color(0xff00114f),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:journey_app/components.dart';
 import 'package:journey_app/constants.dart';
 import 'package:journey_app/screens/add_entry_screen.dart';
+import 'package:journey_app/screens/read_entry_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -32,7 +35,22 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 height: h * 0.08,
               ),
-              JourneyButton(label: 'Read Entries', fn: () {}),
+              JourneyButton(
+                label: 'Read Entries',
+                fn: () async {
+                  await FirebaseFirestore.instance
+                      .collection('entries')
+                      .get()
+                      .then((snapshot) {
+                    List<QueryDocumentSnapshot> docList = snapshot.docs;
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ReadEntryScreen(docs: docList),
+                        ));
+                  });
+                },
+              ),
               SizedBox(
                 height: h * 0.05,
               ),
@@ -42,7 +60,7 @@ class HomeScreen extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => AddEntryScreen(),
+                          builder: (context) => const AddEntryScreen(),
                         ));
                   })
             ],
