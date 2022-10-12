@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:journey_app/constants.dart';
+import 'package:journey_app/screens/read_list_screen.dart';
 
 class JourneyTitle extends StatelessWidget {
   const JourneyTitle({super.key});
@@ -89,7 +90,20 @@ class EntryTile extends StatelessWidget {
             ),
           ]),
       child: ListTile(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) {
+                return ReadListScreen(
+                  title: title,
+                  entry: entry,
+                  date: dateTime,
+                );
+              },
+            ),
+          );
+        },
         contentPadding: const EdgeInsets.all(2),
         title: Text(
           title,
@@ -108,6 +122,7 @@ class EntryTile extends StatelessWidget {
         ),
         tileColor: Colors.white,
         trailing: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               '${dateTime.substring(5, 11)},${dateTime.substring(0, 3)}',
@@ -121,7 +136,7 @@ class EntryTile extends StatelessWidget {
               height: 3,
             ),
             Text(
-              dateTime.substring(17),
+              dateTime.substring(17).trim(),
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w600,

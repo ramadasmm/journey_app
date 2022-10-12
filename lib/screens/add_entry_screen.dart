@@ -116,9 +116,9 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                   label: "SAVE",
                   fn: () async {
                     if (titleController.text.isEmpty ||
-                        entryController.text.isEmpty)
-                      print('Please enter title and entry');
-                    else {
+                        entryController.text.isEmpty) {
+                      showTextEmptyAlert(context);
+                    } else {
                       await FirebaseFirestore.instance
                           .collection('entries')
                           .add({
@@ -128,9 +128,9 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
                                 .add_jm()
                                 .format(DateTime.now()),
                           })
-                          .then((value) => print('Entry added Successful'))
-                          .catchError((error) =>
-                              print("Entry not added due to $error"));
+                          .then((value) => ShowFireBaseAlert(context))
+                          .catchError(
+                              (error) => ShowErrorFireBaseAlert(context));
                       titleController.clear();
                       entryController.clear();
                     }
@@ -143,6 +143,65 @@ class _AddEntryScreenState extends State<AddEntryScreen> {
         ),
       ),
     );
+  }
+
+  ShowFireBaseAlert(BuildContext context) {
+    Widget okButton = TextButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: const Text('OK'));
+
+    AlertDialog alert = AlertDialog(
+      title: const Text('Data Upload Status'),
+      content: const Text('Entry added succesfully'),
+      actions: [okButton],
+    );
+    showDialog(
+        context: context,
+        builder: (context) {
+          return alert;
+        });
+  }
+
+  ShowErrorFireBaseAlert(BuildContext context) {
+    Widget okButton = TextButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        child: const Text('OK'));
+
+    AlertDialog alert = AlertDialog(
+      title: const Text('Something went wrong'),
+      content: const Text('Entry not added due to error'),
+      actions: [okButton],
+    );
+    showDialog(
+        context: context,
+        builder: (context) {
+          return alert;
+        });
+  }
+
+  showTextEmptyAlert(BuildContext context) {
+    Widget okButton = TextButton(
+      onPressed: () {
+        Navigator.pop(context);
+      },
+      child: Text('OK'),
+    );
+    AlertDialog alert = AlertDialog(
+      title: const Text('Empty entry'),
+      content: const Text("Please enter title and entry"),
+      actions: [
+        okButton,
+      ],
+    );
+    showDialog(
+        context: context,
+        builder: (context) {
+          return alert;
+        });
   }
 
   @override
